@@ -1,34 +1,41 @@
 class Solution {
     public int thirdMax(int[] nums) {
-     long max1 = Long.MIN_VALUE;
-     long max2 = Long.MIN_VALUE;
-     long max3 = Long.MIN_VALUE;
 
-     for(int i=0; i<nums.length; i++)
-     {
-        if(nums[i] == max1 || nums[i] == max2 || nums[i] == max3)
-        {
-            continue;
+        long max = nums[0];
+
+        // Find maximum
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > max) {
+                max = nums[i];
+            }
         }
-     if(nums[i] > max1)
-     {
-        max3 = max2;
-        max2 = max1;
-        max1 = nums[i];
-     }
-     else if(nums[i] > max2)
-     {
-        max3 = max2;
-        max2 = nums[i];
-     }
-     else if(nums[i] > max3)
-     {
-        max3 =nums[i];
-     }
-     }
-     if(max3 == Long.MIN_VALUE){
-     return (int) max1;
-    }
-    return (int) max3;
+
+        long secmax = Long.MIN_VALUE;
+
+        // Find second maximum
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > secmax && nums[i] != max) {
+                secmax = nums[i];
+            }
+        }
+
+        long thirdMax = Long.MIN_VALUE;
+
+        // Find third maximum
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > thirdMax &&
+                nums[i] != secmax &&
+                nums[i] != max) {
+
+                thirdMax = nums[i];
+            }
+        }
+
+        // No third distinct maximum
+        if (thirdMax == Long.MIN_VALUE) {
+            return (int) max;
+        }
+
+        return (int) thirdMax;
     }
 }
